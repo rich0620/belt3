@@ -1,0 +1,12 @@
+#back{
+    padding: 5px;
+    border-radius: 6px;
+}
+
+#delete{
+    padding: 5px;
+    background-color: red;
+    color: white;
+    border-radius: 6px;
+    
+}

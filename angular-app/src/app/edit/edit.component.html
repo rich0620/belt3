@@ -1,0 +1,20 @@
+<div style="text-align:center">
+<a [routerLink]="['/home']">Home</a>
+  <h3>Update a Product:</h3>
+  <div id="form-div">
+    
+    
+    <form class="form" (submit)='editProductFromService()'>
+      <label for="newProduct.name">Product Name:</label>
+      <input type="text" name="newProduct.name" [(ngModel)]="newProduct.name"><br>
+      <label for="newProduct.quantity">Quantity:</label>
+      <input type="text" name="newProduct.quantity" [(ngModel)]="newProduct.quantity"><br>
+      <label for="newProduct.price">Price:</label>
+      <input type="text" name="newProduct.price" [(ngModel)]="newProduct.price"><br>
+      <input id="submit" type="submit" value="Update Product">
+    </form>
+    <button id="reset" (click)="populateEditField(newProduct._id)">Reset</button>
+  </div>
+  <p style="color: red" *ngIf='error'>{{error.message}}</p>
+
+</div>
