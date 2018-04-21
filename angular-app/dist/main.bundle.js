@@ -218,14 +218,14 @@ exports.AppModule = AppModule;
 /***/ "./src/app/details/details.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "#back{\n    padding: 5px;\n    border-radius: 6px;\n}\n\n#delete{\n    padding: 5px;\n    background-color: red;\n    color: white;\n    border-radius: 6px;\n    \n}"
+module.exports = "#back{\n    padding: 5px;\n    border-radius: 6px;\n}\n\n#delete{\n    padding: 5px;\n    background-color: red;\n    color: white;\n    border-radius: 6px;\n    \n}\n\n.on {\n    visibility: hidden; \n}"
 
 /***/ }),
 
 /***/ "./src/app/details/details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n<a [routerLink]=\"['/home']\">Home</a>\n  <h3>Details about {{product.name}}: </h3>\n  <h4>Quantity: {{product.quantity}}</h4>\n  <h4>Price: ${{product.price}}</h4>\n  <h4>Product Id: {{product._id}}</h4>\n  <button id=\"back\" [routerLink]=\"['/home']\">Back</button> | <button id=\"delete\" (click)=\"deleteFromService(product._id, product.quantity)\">Delete</button> \n  <p style=\"color: red\" *ngIf='error'>{{error}}</p>\n</div>\n"
+module.exports = "<div style=\"text-align:center\">\n<a [routerLink]=\"['/home']\">Home</a>\n  <h3>Details about {{product.name}}: </h3>\n  <h4>Quantity: {{product.quantity}}</h4>\n  <h4>Price: ${{product.price}}</h4>\n  <h4>Product Id: {{product._id}}</h4>\n  <button id=\"back\" [routerLink]=\"['/home']\">Back</button> | <button [ngClass]=\"{'on': switch}\" id=\"delete\" (click)=\"deleteFromService(product._id, product.quantity)\">Delete</button> \n  <p style=\"color: red\" *ngIf='error'>{{error}}</p>\n</div>\n"
 
 /***/ }),
 
@@ -264,6 +264,12 @@ var DetailsComponent = /** @class */ (function () {
         observable.subscribe(function (data) {
             console.log(data['data']);
             _this.product = data['data'];
+            if (_this.product.quantity == 0) {
+                _this.switch = false;
+            }
+            else {
+                _this.switch = true;
+            }
         });
     };
     DetailsComponent.prototype.deleteFromService = function (id, qty) {
@@ -505,7 +511,7 @@ module.exports = "form{\n    margin-bottom: 10px;\n    display: inline-block;\n}
 /***/ "./src/app/new/new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n<a [routerLink]=\"['/home']\">Home</a>\n  <h3>Register a Restaurant:</h3>\n  <div id=\"form-div\">\n    \n    \n    <form class=\"form\" (submit)='addProductFromService()'>\n      <label for=\"newProduct.name\">Product Name:</label>\n      <input type=\"text\" name=\"newProduct.name\" [(ngModel)]=\"newProduct.name\"><br>\n      <label for=\"newProduct.quantity\">Quantity:</label>\n      <input type=\"text\" name=\"newProduct.quantity\" [(ngModel)]=\"newProduct.quantity\"><br>\n      <label for=\"newProduct.price\">Price:</label>\n      <input type=\"text\" name=\"newProduct.price\" [(ngModel)]=\"newProduct.price\"><br>\n      <input id=\"submit\" type=\"submit\" value=\"Add Product\">\n    </form>\n    <button id=\"reset\" [routerLink]=\"['/home']\">Cancel</button>\n  </div>\n  <p style=\"color: red\" *ngIf='error'>{{error.message}}</p>\n</div>"
+module.exports = "<div style=\"text-align:center\">\n<a [routerLink]=\"['/home']\">Home</a>\n  <h3>Register a Restaurant:</h3>\n  <div id=\"form-div\">\n    \n    \n    <form class=\"form\" (submit)='addProductFromService()'>\n      <label for=\"newProduct.name\">Product Name:</label>\n      <input type=\"text\" name=\"newProduct.name\" required minlength=\"3\" [(ngModel)]=\"newProduct.name\" #name=\"ngModel\"><br>\n      <label for=\"newProduct.quantity\">Quantity:</label>\n      <input type=\"text\" name=\"newProduct.quantity\" [(ngModel)]=\"newProduct.quantity\"><br>\n      <label for=\"newProduct.price\">Price:</label>\n      <input type=\"text\" name=\"newProduct.price\" [(ngModel)]=\"newProduct.price\"><br>\n      <input id=\"submit\" type=\"submit\" value=\"Add Product\">\n    </form>\n    <button id=\"reset\" [routerLink]=\"['/home']\">Cancel</button>\n  </div>\n  <p style=\"color: red\" *ngIf='error'>{{error.message}}</p>\n</div>\n\n{{product.name | json}}"
 
 /***/ }),
 

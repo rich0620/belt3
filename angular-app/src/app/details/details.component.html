@@ -1,9 +1,11 @@
+<h1>WHAT THE FUCK!</h1>
 <div style="text-align:center">
+  
 <a [routerLink]="['/home']">Home</a>
   <h3>Details about {{product.name}}: </h3>
   <h4>Quantity: {{product.quantity}}</h4>
   <h4>Price: ${{product.price}}</h4>
   <h4>Product Id: {{product._id}}</h4>
-  <button id="back" [routerLink]="['/home']">Back</button> | <button id="delete" (click)="deleteFromService(product._id, product.quantity)">Delete</button> 
+  <button id="back" [routerLink]="['/home']">Back</button> | <button [ngClass]="{'on': switch}" id="delete" (click)="deleteFromService(product._id, product.quantity)">Delete</button> 
   <p style="color: red" *ngIf='error'>{{error}}</p>
 </div>

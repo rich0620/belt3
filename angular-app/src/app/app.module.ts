@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpService } from './http.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { MaterializeModule } from 'angular2-materialize';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -25,9 +26,10 @@ import { DetailsComponent } from './details/details.component';
   ],
   imports: [
     BrowserModule,
+    MaterializeModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

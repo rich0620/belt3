@@ -11,6 +11,8 @@ export class DetailsComponent implements OnInit {
   product: any;
   error;
 
+  switch: boolean;
+
   constructor(private _http: HttpService,
     private _route: ActivatedRoute,
     private _router: Router) { }
@@ -18,6 +20,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe((params: Params) => this.getProductFromService(params['id']));
     this.product = {name: "", quantity: "", price: ""}
+  
   }
 
   getProductFromService(id){
@@ -25,6 +28,12 @@ export class DetailsComponent implements OnInit {
     observable.subscribe(data => {
       console.log(data['data']);
       this.product = data['data'];
+      if(this.product.quantity == 0){
+        this.switch = false;
+      }
+      else{
+        this.switch = true;
+      }
     })
   }
 

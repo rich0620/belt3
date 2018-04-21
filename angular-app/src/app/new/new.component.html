@@ -1,12 +1,12 @@
 <div style="text-align:center">
 <a [routerLink]="['/home']">Home</a>
-  <h3>Register a Restaurant:</h3>
+  <h3>Register a New Product:</h3>
   <div id="form-div">
     
     
     <form class="form" (submit)='addProductFromService()'>
       <label for="newProduct.name">Product Name:</label>
-      <input type="text" name="newProduct.name" [(ngModel)]="newProduct.name"><br>
+      <input type="text" name="newProduct.name" required minlength="3" [(ngModel)]="newProduct.name" #name="ngModel"><br>
       <label for="newProduct.quantity">Quantity:</label>
       <input type="text" name="newProduct.quantity" [(ngModel)]="newProduct.quantity"><br>
       <label for="newProduct.price">Price:</label>
@@ -17,3 +17,5 @@
   </div>
   <p style="color: red" *ngIf='error'>{{error.message}}</p>
 </div>
+
+{{product.name | json}}

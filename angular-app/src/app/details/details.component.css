@@ -10,3 +10,7 @@
     border-radius: 6px;
     
 }
+
+.on {
+    visibility: hidden; 
+}
