@@ -113,14 +113,14 @@ exports.AppRoutingModule = AppRoutingModule;
 /***/ "./src/app/app.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = ".brand-logo{\n    margin-left: 20px;\n}"
 
 /***/ }),
 
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n\n  <h1>\n    {{ title }}\n  </h1>\n\n\n<router-outlet></router-outlet>\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div class=\"container  blue-grey lighten-5\">\n<nav class=\"nav-extended  blue-grey darken-2\">\n    <div class=\"nav-wrapper\">\n      <a href=\"#!\" class=\"brand-logo\">{{ title }}</a>\n      <ul class=\"right hide-on-med-and-down\">\n        <li><a></a></li>\n      </ul>\n    </div>\n    <div class=\"nav-content\">\n      <!-- <span class=\"nav-title\">Title</span> -->\n      <a class=\"btn-floating btn-large halfway-fab waves-effect waves-light teal\">\n        <i class=\"material-icons\" [routerLink]=\"['/new']\">add</i>\n      </a>\n    </div>\n  </nav>\n<router-outlet></router-outlet>\n</div>"
 
 /***/ }),
 
@@ -144,7 +144,7 @@ var http_service_1 = __webpack_require__("./src/app/http.service.ts");
 var AppComponent = /** @class */ (function () {
     function AppComponent(_http) {
         this._http = _http;
-        this.title = 'Commerce Manager';
+        this.title = 'Inventory Manager';
     }
     AppComponent = __decorate([
         core_1.Component({
@@ -178,6 +178,7 @@ var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_service_1 = __webpack_require__("./src/app/http.service.ts");
 var http_1 = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var forms_1 = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var angular2_materialize_1 = __webpack_require__("./node_modules/angular2-materialize/dist/index.js");
 var app_routing_module_1 = __webpack_require__("./src/app/app-routing.module.ts");
 var app_component_1 = __webpack_require__("./src/app/app.component.ts");
 var home_component_1 = __webpack_require__("./src/app/home/home.component.ts");
@@ -200,9 +201,10 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 platform_browser_1.BrowserModule,
+                angular2_materialize_1.MaterializeModule,
                 forms_1.FormsModule,
                 http_1.HttpClientModule,
-                app_routing_module_1.AppRoutingModule
+                app_routing_module_1.AppRoutingModule,
             ],
             providers: [http_service_1.HttpService],
             bootstrap: [app_component_1.AppComponent]
@@ -218,14 +220,14 @@ exports.AppModule = AppModule;
 /***/ "./src/app/details/details.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "#back{\n    padding: 5px;\n    border-radius: 6px;\n}\n\n#delete{\n    padding: 5px;\n    background-color: red;\n    color: white;\n    border-radius: 6px;\n    \n}\n\n.on {\n    visibility: hidden; \n}"
+module.exports = ""
 
 /***/ }),
 
 /***/ "./src/app/details/details.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n<a [routerLink]=\"['/home']\">Home</a>\n  <h3>Details about {{product.name}}: </h3>\n  <h4>Quantity: {{product.quantity}}</h4>\n  <h4>Price: ${{product.price}}</h4>\n  <h4>Product Id: {{product._id}}</h4>\n  <button id=\"back\" [routerLink]=\"['/home']\">Back</button> | <button [ngClass]=\"{'on': switch}\" id=\"delete\" (click)=\"deleteFromService(product._id, product.quantity)\">Delete</button> \n  <p style=\"color: red\" *ngIf='error'>{{error}}</p>\n</div>\n"
+module.exports = "\n<ul class=\"collection with-header\">\n    <li class=\"collection-header\"><h4>Details about {{product.name}}</h4></li>\n    <li class=\"collection-item\">Quantity: {{product.quantity}}</li>\n    <li class=\"collection-item\">Price: ${{product.price}}</li>\n    <li class=\"collection-item\">Product Id: {{product._id}}</li>\n  </ul>\n  <a class=\"waves-effect waves-light btn\" [routerLink]=\"['/home']\">Back</a>\n  <a class=\"waves-effect waves-light btn red\" [ngClass]=\"{'disabled': switch}\" (click)=\"deleteFromService(product._id, product.quantity)\">Delete</a>\n  <p style=\"color: red\" *ngIf='error'>{{error.message}}</p>"
 
 /***/ }),
 
@@ -262,7 +264,6 @@ var DetailsComponent = /** @class */ (function () {
         var _this = this;
         var observable = this._http.getOneProduct(id);
         observable.subscribe(function (data) {
-            console.log(data['data']);
             _this.product = data['data'];
             if (_this.product.quantity == 0) {
                 _this.switch = false;
@@ -281,7 +282,6 @@ var DetailsComponent = /** @class */ (function () {
         else {
             var observable = this._http.deleteProduct(id);
             observable.subscribe(function (data) {
-                console.log("Product no longer offered", data);
                 _this._router.navigate(['/home']);
             });
         }
@@ -313,7 +313,7 @@ module.exports = "form{\n    margin-bottom: 10px;\n    display: inline-block;\n}
 /***/ "./src/app/edit/edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n<a [routerLink]=\"['/home']\">Home</a>\n  <h3>Update a Product:</h3>\n  <div id=\"form-div\">\n    \n    \n    <form class=\"form\" (submit)='editProductFromService()'>\n      <label for=\"newProduct.name\">Product Name:</label>\n      <input type=\"text\" name=\"newProduct.name\" [(ngModel)]=\"newProduct.name\"><br>\n      <label for=\"newProduct.quantity\">Quantity:</label>\n      <input type=\"text\" name=\"newProduct.quantity\" [(ngModel)]=\"newProduct.quantity\"><br>\n      <label for=\"newProduct.price\">Price:</label>\n      <input type=\"text\" name=\"newProduct.price\" [(ngModel)]=\"newProduct.price\"><br>\n      <input id=\"submit\" type=\"submit\" value=\"Update Product\">\n    </form>\n    <button id=\"reset\" (click)=\"populateEditField(newProduct._id)\">Reset</button>\n  </div>\n  <p style=\"color: red\" *ngIf='error'>{{error.message}}</p>\n\n</div>\n"
+module.exports = "\n<div class=\"row\">\n    <form class=\"col s12 m8 push-s2 push-m2\" (submit)='editProductFromService()'>\n      <h4 class=\"left-align\">Update a product</h4>\n      <div class=\"row\">\n        <div class=\"input-field col s6\">\n            <label for=\"newProduct.name\">Name:</label>\n            <input type=\"text\" name=\"newProduct.name\" [(ngModel)]=\"newProduct.name\" #name=\"ngModel\">\n        </div>\n      </div>\n      <div class=\"row\">\n          <div class=\"input-field col s6\">\n              <label for=\"newProduct.quantity\">Quantity:</label>\n              <input type=\"text\" name=\"newProduct.quantity\" [(ngModel)]=\"newProduct.quantity\" #name=\"ngModel\">\n          </div>\n      </div>\n      <div class=\"row\">\n          <div class=\"input-field col s6\">\n              <label for=\"newProduct.price\">Price:</label>\n              <input type=\"text\" name=\"newProduct.price\" [(ngModel)]=\"newProduct.price\" #name=\"ngModel\">\n          </div>\n        </div>\n        <div class=\"row\">\n          <div class=\"col s8\">\n          <button class=\"btn waves-effect waves-light\" type=\"submit\" name=\"action\">Submit\n            <i class=\"material-icons right\">send</i>\n          </button>\n          <a class=\"waves-effect waves-light btn\" (click)=\"populateEditField(newProduct._id)\">Reset</a>\n          </div>\n        </div>\n    </form>\n  </div>\n  \n  <p style=\"color: red\" *ngIf='error'>{{error.message}}</p>\n"
 
 /***/ }),
 
@@ -366,7 +366,6 @@ var EditComponent = /** @class */ (function () {
                 _this.error = data['error'];
             }
             else {
-                console.log('Updated Product', data);
                 _this._router.navigate(['/home']);
             }
         });
@@ -391,14 +390,14 @@ exports.EditComponent = EditComponent;
 /***/ "./src/app/home/home.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "#authors {\n    font-family: \"Trebuchet MS\", Arial, Helvetica, sans-serif;\n    border-collapse: collapse;\n    width: 100%;\n}\n\n#authors td, #authors th {\n    border: 1px solid #ddd;\n    padding: 8px;\n}\n\n#authors tr:nth-child(even){background-color: #f2f2f2;}\n\n#authors tr:hover {background-color: #ddd;}\n\n#authors th {\n    padding-top: 12px;\n    padding-bottom: 12px;\n    text-align: left;\n    background-color: #42aaf4;\n    /* color: white; */\n}\n\nbutton{\n    padding: 5px;\n    border-radius: 5px;\n}"
+module.exports = "table{\n    margin-top: 50px;\n}"
 
 /***/ }),
 
 /***/ "./src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n  <button [routerLink]=\"['/new']\">Add a Product</button>\n  <table id=\"authors\">\n    <thead>\n      <tr>\n        <th>Product Id:</th>\n        <th>Product Name:</th>\n        <th>Quantity:</th>\n        <th>Price:</th>\n        <th>Actions:</th>\n      </tr>\n    </thead>\n    <tbody *ngFor='let prod of products'>\n      <tr>\n        <td>{{prod._id}}</td>        \n        <td>{{prod.name}}</td>\n        <td>{{prod.quantity}}</td>\n        <td>${{prod.price}}</td>        \n        <td><button [routerLink]=\"[('/details/' + prod._id)]\">Product Details</button> <button [routerLink]=\"[('/edit/' + prod._id)]\">Edit</button></td>\n      </tr>\n    </tbody>\n  </table>\n</div>\n"
+module.exports = "    \n<!-- <button [routerLink]=\"['/new']\">Add a Product</button> -->\n<table class=\"highlight blue-grey lighten-4 z-depth-1\">\n  <thead class=\"teal lighten-2\">\n    <tr>\n      <th>Product Id:</th>\n      <th>Product Name:</th>\n      <th>Quantity:</th>\n      <th>Price:</th>\n      <th>Actions:</th>\n    </tr>\n  </thead>\n  <tbody *ngFor='let prod of products'>\n    <tr>\n      <td>{{prod._id}}</td>        \n      <td>{{prod.name}}</td>\n      <td>{{prod.quantity}}</td>\n      <td>${{prod.price}}</td>        \n      <td><button [routerLink]=\"[('/details/' + prod._id)]\">Product Details</button> <button [routerLink]=\"[('/edit/' + prod._id)]\">Edit</button></td>\n    </tr>\n  </tbody>\n</table>\n\n"
 
 /***/ }),
 
@@ -511,7 +510,7 @@ module.exports = "form{\n    margin-bottom: 10px;\n    display: inline-block;\n}
 /***/ "./src/app/new/new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n<a [routerLink]=\"['/home']\">Home</a>\n  <h3>Register a Restaurant:</h3>\n  <div id=\"form-div\">\n    \n    \n    <form class=\"form\" (submit)='addProductFromService()'>\n      <label for=\"newProduct.name\">Product Name:</label>\n      <input type=\"text\" name=\"newProduct.name\" required minlength=\"3\" [(ngModel)]=\"newProduct.name\" #name=\"ngModel\"><br>\n      <label for=\"newProduct.quantity\">Quantity:</label>\n      <input type=\"text\" name=\"newProduct.quantity\" [(ngModel)]=\"newProduct.quantity\"><br>\n      <label for=\"newProduct.price\">Price:</label>\n      <input type=\"text\" name=\"newProduct.price\" [(ngModel)]=\"newProduct.price\"><br>\n      <input id=\"submit\" type=\"submit\" value=\"Add Product\">\n    </form>\n    <button id=\"reset\" [routerLink]=\"['/home']\">Cancel</button>\n  </div>\n  <p style=\"color: red\" *ngIf='error'>{{error.message}}</p>\n</div>\n\n{{product.name | json}}"
+module.exports = "\n<div class=\"row\">\n  <form class=\"col s12 m8 push-s2 push-m2\" (submit)='addProductFromService()'>\n    <h4 class=\"left-align\">Register new product</h4>\n    <div class=\"row\">\n      <div class=\"input-field col s6\">\n          <label for=\"newProduct.name\">Name:</label>\n          <input type=\"text\" name=\"newProduct.name\" required minlength=\"3\" [(ngModel)]=\"newProduct.name\" #name=\"ngModel\">\n      </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"input-field col s6\">\n            <label for=\"newProduct.quantity\">Quantity:</label>\n            <input type=\"text\" name=\"newProduct.quantity\" [(ngModel)]=\"newProduct.quantity\" #name=\"ngModel\">\n        </div>\n    </div>\n    <div class=\"row\">\n        <div class=\"input-field col s6\">\n            <label for=\"newProduct.price\">Price:</label>\n            <input type=\"text\" name=\"newProduct.price\" [(ngModel)]=\"newProduct.price\" #name=\"ngModel\">\n        </div>\n      </div>\n      <div class=\"row\">\n        <div class=\"col s8\">\n        <button class=\"btn waves-effect waves-light\" type=\"submit\" name=\"action\">Submit\n          <i class=\"material-icons right\">send</i>\n        </button>\n        <a class=\"waves-effect waves-light btn\" [routerLink]=\"['/home']\">Cancel</a>\n        </div>\n      </div>\n  </form>\n</div>\n\n<p style=\"color: red\" *ngIf='error'>{{error.message}}</p>"
 
 /***/ }),
 
@@ -547,11 +546,9 @@ var NewComponent = /** @class */ (function () {
         var observable = this._http.newProduct(this.newProduct);
         observable.subscribe(function (data) {
             if (data['error']) {
-                console.log('Naw dawg', data['error']);
                 _this.error = data['error'];
             }
             else {
-                console.log('New Product Added', data);
                 _this.newProduct = { name: "", quantity: "", price: "" };
                 _this._router.navigate(['/home']);
             }

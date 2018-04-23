@@ -1,25 +1,23 @@
-  <div style="text-align:center">
     
-  <button [routerLink]="['/new']">Add a Product</button>
-  <h1>Get the fuck outta here</h1>
-  <table id="authors">
-    <thead>
-      <tr>
-        <th>Product Id:</th>
-        <th>Product Name:</th>
-        <th>Quantity:</th>
-        <th>Price:</th>
-        <th>Actions:</th>
-      </tr>
-    </thead>
-    <tbody *ngFor='let prod of products'>
-      <tr>
-        <td>{{prod._id}}</td>        
-        <td>{{prod.name}}</td>
-        <td>{{prod.quantity}}</td>
-        <td>${{prod.price}}</td>        
-        <td><button [routerLink]="[('/details/' + prod._id)]">Product Details</button> <button [routerLink]="[('/edit/' + prod._id)]">Edit</button></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<!-- <button [routerLink]="['/new']">Add a Product</button> -->
+<table class="highlight blue-grey lighten-4 z-depth-1">
+  <thead class="teal lighten-2">
+    <tr>
+      <th>Product Id:</th>
+      <th>Product Name:</th>
+      <th>Quantity:</th>
+      <th>Price:</th>
+      <th>Actions:</th>
+    </tr>
+  </thead>
+  <tbody *ngFor='let prod of products'>
+    <tr>
+      <td>{{prod._id}}</td>        
+      <td>{{prod.name}}</td>
+      <td>{{prod.quantity}}</td>
+      <td>${{prod.price}}</td>        
+      <td><button [routerLink]="[('/details/' + prod._id)]">Product Details</button> <button [routerLink]="[('/edit/' + prod._id)]">Edit</button></td>
+    </tr>
+  </tbody>
+</table>
+

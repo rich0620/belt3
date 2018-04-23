@@ -26,7 +26,6 @@ export class DetailsComponent implements OnInit {
   getProductFromService(id){
     let observable = this._http.getOneProduct(id);
     observable.subscribe(data => {
-      console.log(data['data']);
       this.product = data['data'];
       if(this.product.quantity == 0){
         this.switch = false;
@@ -46,7 +45,6 @@ export class DetailsComponent implements OnInit {
     else {
       let observable = this._http.deleteProduct(id);
       observable.subscribe(data => {
-        console.log("Product no longer offered", data);
         this._router.navigate(['/home']);
       })
     }

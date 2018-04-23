@@ -1,16 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
-
-  <h1>
-    {{ title }}
-  </h1>
-  <form materialize class="col s12">
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="Placeholder" id="first_name" type="text" class="validate">
-          <label for="first_name">First Name</label>
-        </div>
-      </div>
-    </form>
-
-
+<div class="container  blue-grey lighten-5">
+<nav class="nav-extended  blue-grey darken-2">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">{{ title }}</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a></a></li>
+      </ul>
+    </div>
+    <div class="nav-content">
+      <!-- <span class="nav-title">Title</span> -->
+      <a class="btn-floating btn-large halfway-fab waves-effect waves-light teal">
+        <i class="material-icons" [routerLink]="['/new']">add</i>
+      </a>
+    </div>
+  </nav>
 <router-outlet></router-outlet>
+</div>

@@ -23,11 +23,9 @@ export class NewComponent implements OnInit {
     let observable = this._http.newProduct(this.newProduct);
     observable.subscribe(data => {
       if(data['error']){
-        console.log('Naw dawg', data['error'])
         this.error = data['error'];
       }
       else{
-        console.log('New Product Added', data);
         this.newProduct = {name: "", quantity: "", price: ""}
         this._router.navigate(['/home']);
       }

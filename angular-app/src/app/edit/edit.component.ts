@@ -39,7 +39,6 @@ export class EditComponent implements OnInit {
         this.error = data['error'];
       }
       else{
-        console.log('Updated Product', data);
         this._router.navigate(['/home']);
       }
     })
